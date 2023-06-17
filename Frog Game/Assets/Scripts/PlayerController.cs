@@ -56,6 +56,10 @@ public class PlayerController : MonoBehaviour
 
         }
 
+        if (Input.GetKeyDown(KeyCode.R)) {
+            AudioManager.instance.PlaySFX("frog_sound");
+        }
+
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
     }
