@@ -572,9 +572,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 963194228}
-  zoomMultiplier: 0
+  zoomMultiplier: 5
   minZoom: 5
-  maxZoom: 50
+  maxZoom: 20
 --- !u!1 &1169452772 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3716f1c1a89e4f048b798bd8bcba9267, type: 3}
