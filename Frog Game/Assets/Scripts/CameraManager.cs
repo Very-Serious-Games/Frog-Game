@@ -1,13 +1,22 @@
+using Microsoft.Win32.SafeHandles;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-    public Transform cameraTransform;
+    [SerializeField] private Transform cameraTransform;
     private bool isRotating;
 
-    private void Start()
-    {
+    // Zoom Variables
+    private float zoom;
+    [SerializeField]private float zoomMultiplier;
+    private float zoomSpeed = 20f;
+    private float smoothTime = 0.25f;
+    [SerializeField] private float minZoom = 5f;  // Limit the zoom range
+    [SerializeField] private float maxZoom = 50f; // Limit the zoom range
+
+    private void Start() {
         isRotating = false;
+        zoom = Camera.main.orthographicSize;
     }
 
     private void Update()
@@ -20,6 +29,13 @@ public class CameraManager : MonoBehaviour
         {
             RotateCamera(90f);
         }
+
+        
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        zoom -= scroll * zoomMultiplier;
+        zoom = Mathf.Clamp(zoom, minZoom, maxZoom);
+        Camera.main.orthographicSize = Mathf.SmoothDamp(Camera.main.orthographicSize, zoom, ref zoomSpeed, smoothTime);
+
     }
 
     private void RotateCamera(float angle)
