@@ -1088,6 +1088,7 @@ GameObject:
   - component: {fileID: 2026976917}
   - component: {fileID: 2026976921}
   - component: {fileID: 2026976922}
+  - component: {fileID: 2026976923}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -1193,8 +1194,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dcca7712cf1023428f5230f80eb03b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 2026976923}
   playerJumpHeight: 0.5
   sonarExample: {fileID: 404236236}
+  jumpStrength: 0
+  multiplier: 20
+  maxJumpStrength: 10
 --- !u!54 &2026976922
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1222,6 +1227,32 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 2
+--- !u!143 &2026976923
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2026976916}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1
+  m_Radius: 0.5000003
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2062692952
 GameObject:
   m_ObjectHideFlags: 0
