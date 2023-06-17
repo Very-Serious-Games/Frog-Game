@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour {
 
@@ -8,8 +9,9 @@ public class PlayerController : MonoBehaviour {
     private Vector3 playerVelocity;
     private bool groundedPlayer;
     private float playerSpeed = 2.0f;
-    private float playerJumpHeight = 1.0f;
+    public float playerJumpHeight = 1.0f;
     private float gravityValue = -9.81f;
+    [SerializeField] SimpleSonarShader_ExampleCollision sonarExample;
 
     private Transform cameraTransform;
 
@@ -22,6 +24,7 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
         groundedPlayer = controller.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0) {
             playerVelocity.y = 0;
@@ -37,6 +40,12 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetButton("Jump") && groundedPlayer) {
             playerVelocity.y += Mathf.Sqrt(playerJumpHeight * -3.0f * gravityValue);
+        }
+
+        if (Input.GetKey(KeyCode.V)){
+            Vector3 playerPosition = transform.position;
+            float force = 100.0f;
+            sonarExample?.PerformSonarLogic(playerPosition, force);
         }
 
         playerVelocity.y += gravityValue * Time.deltaTime;
