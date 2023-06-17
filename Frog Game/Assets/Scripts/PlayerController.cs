@@ -11,6 +11,10 @@ public class PlayerController : MonoBehaviour {
     private float playerJumpHeight = 1.0f;
     private float gravityValue = -9.81f;
 
+    [SerializeField] private float jumpStrength = 0f;
+    [SerializeField] private float multiplier = 20f;
+    [SerializeField] private float maxJumpStrength = 10f;
+
     private Transform cameraTransform;
 
     void Start()
@@ -35,8 +39,16 @@ public class PlayerController : MonoBehaviour {
             gameObject.transform.forward = move;
         }
 
-        if (Input.GetButton("Jump") && groundedPlayer) {
-            playerVelocity.y += Mathf.Sqrt(playerJumpHeight * -3.0f * gravityValue);
+        if (Input.GetButton("Jump") && groundedPlayer && jumpStrength < maxJumpStrength) {
+            
+            jumpStrength += Time.deltaTime * multiplier;
+            Debug.Log(jumpStrength);
+
+        } else if (Input.GetButtonUp("Jump")) {
+
+            playerVelocity.y += Mathf.Sqrt(playerJumpHeight * -3.0f * gravityValue * jumpStrength);
+            jumpStrength = 0f;
+
         }
 
         playerVelocity.y += gravityValue * Time.deltaTime;
