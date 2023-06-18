@@ -6,7 +6,10 @@ using UnityEngine;
 
 
 public class SimpleSonarShader_ExampleCollision : MonoBehaviour
-{    
+{
+    [SerializeField] float divisiorPotencia = 2;    
+
+    
     public event EventHandler<Vector3> OnSonarLogic;
 
     public void PerformSonarLogic(Vector3 point, float force)
@@ -22,7 +25,7 @@ public class SimpleSonarShader_ExampleCollision : MonoBehaviour
     {
 
         SimpleSonarShader_Parent parent = GetComponentInParent<SimpleSonarShader_Parent>();
-        if (parent) parent.StartSonarRing(collision.contacts[0].point, collision.impulse.magnitude / 10.0f);
+        if (parent) parent.StartSonarRing(collision.contacts[0].point, collision.impulse.magnitude / divisiorPotencia);
 
     }
 }

@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public float playerJumpHeight = 1.0f;
     private float gravityValue = -9.81f;
     [SerializeField] SimpleSonarShader_ExampleCollision sonarExample;
+    [SerializeField] BasicNavMeshAgent frienCroak;
 
     [SerializeField] private float jumpStrength = 0f;
     [SerializeField] private float multiplier = 20f;
@@ -67,6 +68,7 @@ public class PlayerController : MonoBehaviour
             Vector3 playerPosition = transform.position;
             float force = 100.0f;
             sonarExample?.PerformSonarLogic(playerPosition, force);
+            frienCroak?.PerformSonarLogic();
         }
 
         playerVelocity.y += gravityValue * Time.deltaTime;
