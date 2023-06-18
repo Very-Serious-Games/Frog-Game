@@ -81,7 +81,7 @@ Material:
     - _RingIntensityScale: 6
     - _RingRange: 5
     - _RingSpeed: 20
-    - _RingWidth: 10
+    - _RingWidth: 3
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
