@@ -6623,7 +6623,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 2a103dc78210c5a4db8cd30e8ad92138, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 15b6aa5d6b92a2f4f96ad64d95568ad1, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &584656416
 Transform:
@@ -15228,11 +15228,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 1601194362497709642, guid: bffe474d70a5e7744b2deba0da94a235, type: 3}
---- !u!4 &1374009143 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3939738931176103269, guid: 3716f1c1a89e4f048b798bd8bcba9267, type: 3}
-  m_PrefabInstance: {fileID: 534052535}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1375250650
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22394,8 +22389,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_agent: {fileID: 2081224249}
   m_waypoints:
-  - {fileID: 1374009143}
-  distanceToDestination: 0.5
+  - {fileID: 2009225549}
+  distanceToDestination: 5
+  m_currentWaypointIndex: 0
   sonarExample: {fileID: 1389068546}
 --- !u!195 &2081224249
 NavMeshAgent:

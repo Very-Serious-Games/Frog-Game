@@ -42,9 +42,6 @@ public class BasicNavMeshAgent : MonoBehaviour
             m_agent.SetDestination(m_waypoints[m_currentWaypointIndex].position);
             
         }
-        Vector3 v = m_agent.transform.position;
-        v.y++;
-        m_agent.Move(v);
               
 
     }
