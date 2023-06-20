@@ -35,15 +35,20 @@ public class SimpleSonarShader_ExampleCollision : MonoBehaviour
         float radius = 0.0f;
         float expansionSpeed = 20.0f; // Adjust the expansion speed here
 
+        SphereCollider collider = sonarRing.GetComponent<SphereCollider>();
+
+
         while (radius < force)
         {
             radius += expansionSpeed * Time.deltaTime;
             sonarRing.transform.localScale = new Vector3(radius, sonarRing.transform.localScale.y, radius);
+            collider.radius = radius;
 
             if (radius >= force)
             {
                 // Stop the expansion when the radius exceeds the force value
                 sonarRing.transform.localScale = new Vector3(force, sonarRing.transform.localScale.y, force);
+                collider.radius = force; // Set the collider radius to the final value
                 break;
             }
 
