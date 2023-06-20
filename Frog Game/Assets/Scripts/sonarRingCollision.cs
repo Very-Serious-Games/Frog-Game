@@ -12,7 +12,7 @@ public class sonarRingCollision : MonoBehaviour {
 
         if (collider.tag != "Player")
         {
-            collidedOutline.activateOutline();
+            collidedOutline.ActivateOutline();
         }
         else {
             Debug.Log("Player collision");
