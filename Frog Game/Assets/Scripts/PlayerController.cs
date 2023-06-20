@@ -64,9 +64,6 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R)) {
             AudioManager.instance.PlaySFX("frog_sound");
-        }
-
-        if (Input.GetKey(KeyCode.V)){
             Vector3 playerPosition = transform.position;
             float force = 100.0f;
             sonarExample?.PerformSonarLogic(playerPosition, force);
