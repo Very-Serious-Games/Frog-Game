@@ -23,15 +23,22 @@ public class PlayerController : MonoBehaviour
 
     private Animator animator;
 
+    private Outline outline;
+
     void Start()
     {
         cameraTransform = Camera.main.transform;
         animator = GetComponent<Animator>();
+        outline = GetComponent<Outline>();
+        outline.SetOutlineActive();
+        outline.timer = 1000f;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
         transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
         groundedPlayer = controller.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0)
