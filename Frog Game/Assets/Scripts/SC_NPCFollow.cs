@@ -48,6 +48,7 @@ public class SC_NPCFollow : MonoBehaviour
     public void PerformFollowLogic()
     {
         _animator.SetBool("Walk", true);
+        _animator.SetBool("Idle", false);
         OnPlayerEndsConversation?.Invoke(this, EventArgs.Empty);
         state = State.follow;
     }
