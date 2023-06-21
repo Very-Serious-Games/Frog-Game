@@ -26,6 +26,8 @@ public class SC_NPCFollow : MonoBehaviour
         watching
     }
 
+    private Animator _animator;
+
     public void PerformSonarLogic()
     {
         OnFrienCroak?.Invoke(this, EventArgs.Empty);
@@ -38,12 +40,14 @@ public class SC_NPCFollow : MonoBehaviour
 
     public void PerformWatchingLogic()
     {
+        _animator.SetBool("Idle", true);
         OnPlayerEnterZone?.Invoke(this, EventArgs.Empty);
         state = State.watching;
     }
 
     public void PerformFollowLogic()
     {
+        _animator.SetBool("Walk", true);
         OnPlayerEndsConversation?.Invoke(this, EventArgs.Empty);
         state = State.follow;
     }
@@ -52,6 +56,7 @@ public class SC_NPCFollow : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        _animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
