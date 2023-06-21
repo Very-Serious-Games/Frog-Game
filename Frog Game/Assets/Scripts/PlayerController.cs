@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
 
     private Animator _animator;
 
+    public bool isGrounded;
+
     void Start()
     {
         cameraTransform = Camera.main.transform;
@@ -50,6 +52,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButton("Jump") && groundedPlayer && jumpStrength < maxJumpStrength)
         {
             _animator.SetBool("Jump", true);
+            _animator.SetBool("KeyUP", false);
             jumpStrength += Time.deltaTime * multiplier;
             Debug.Log(jumpStrength);
 
@@ -59,6 +62,7 @@ public class PlayerController : MonoBehaviour
             _animator.SetBool("KeyUP", true);
             playerVelocity.y += Mathf.Sqrt(playerJumpHeight * -3.0f * gravityValue * jumpStrength);
             jumpStrength = 0f;
+            isGrounded = false;
 
         }
 
@@ -71,12 +75,20 @@ public class PlayerController : MonoBehaviour
 
         playerVelocity.y += gravityValue * Time.deltaTime;
 
-        if (!groundedPlayer)
+        if (groundedPlayer)
+        {
+            isGrounded = true;
+        }
+        
+        if (!isGrounded)
         {
             _animator.SetBool("OnAir", true);
+            _animator.SetBool("Jump", false);            
         }
-
-        // TO DO resetear el booleano de la animacion de OnAir. Ver donde ponerlo.
+        else
+        {
+            _animator.SetBool("OnAir", false);
+        }
 
         controller.Move(playerVelocity * Time.deltaTime);
     }
