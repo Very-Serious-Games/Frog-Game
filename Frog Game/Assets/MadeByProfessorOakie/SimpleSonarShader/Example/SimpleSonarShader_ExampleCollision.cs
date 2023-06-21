@@ -5,30 +5,42 @@ using UnityEngine;
 public class SimpleSonarShader_ExampleCollision : MonoBehaviour
 {
     public event EventHandler<Vector3> OnSonarLogic;
+    public event EventHandler OnVisionRestored;
+    bool ring_activated = true;
 
     [SerializeField] float divisorPotencia = 2;
     public GameObject sonarRingPrefab; // The sonar ring prefab
 
     private GameObject activeSonarRing; // Reference to the active sonar ring
 
-    public void PerformSonarLogic(Vector3 point, float force)  {
-        if (activeSonarRing == null)
-        {
-            StartSonarRing(point, force);
-            OnSonarLogic?.Invoke(this, point);
+    public void PerformVisionRestoredLogic(){
+        OnVisionRestored?.Invoke(this, EventArgs.Empty);
+        ring_activated = false;
 
-            // Start sonar ring from the specified point
-            SimpleSonarShader_Parent parent = GetComponentInParent<SimpleSonarShader_Parent>();
-            if (parent) parent.StartSonarRing(point, force);
+    }
+
+    public void PerformSonarLogic(Vector3 point, float force)  {
+        if(ring_activated){
+            if (activeSonarRing == null)
+            {
+                StartSonarRing(point, force);
+                OnSonarLogic?.Invoke(this, point);
+
+                // Start sonar ring from the specified point
+                SimpleSonarShader_Parent parent = GetComponentInParent<SimpleSonarShader_Parent>();
+                if (parent) parent.StartSonarRing(point, force);
+            }
         }
     }
     
     public void PerformSonarLogic2(Vector3 point, float force)  {
-        OnSonarLogic?.Invoke(this, point);
-        // Start sonar ring from the specified point
+        if(ring_activated){
+            OnSonarLogic?.Invoke(this, point);
+            // Start sonar ring from the specified point
 
-        SimpleSonarShader_Parent parent = GetComponentInParent<SimpleSonarShader_Parent>();
-        parent?.StartSonarRing(point, force);
+            SimpleSonarShader_Parent parent = GetComponentInParent<SimpleSonarShader_Parent>();
+            parent?.StartSonarRing(point, force);
+        }
     }
 
     private void StartSonarRing(Vector3 position, float force)
