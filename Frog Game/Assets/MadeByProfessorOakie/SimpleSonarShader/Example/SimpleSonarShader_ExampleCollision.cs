@@ -11,8 +11,7 @@ public class SimpleSonarShader_ExampleCollision : MonoBehaviour
 
     private GameObject activeSonarRing; // Reference to the active sonar ring
 
-    public void PerformSonarLogic(Vector3 point, float force)
-    {
+    public void PerformSonarLogic(Vector3 point, float force)  {
         if (activeSonarRing == null)
         {
             StartSonarRing(point, force);
@@ -22,6 +21,14 @@ public class SimpleSonarShader_ExampleCollision : MonoBehaviour
             SimpleSonarShader_Parent parent = GetComponentInParent<SimpleSonarShader_Parent>();
             if (parent) parent.StartSonarRing(point, force);
         }
+    }
+    
+    public void PerformSonarLogic2(Vector3 point, float force)  {
+        OnSonarLogic?.Invoke(this, point);
+        // Start sonar ring from the specified point
+
+        SimpleSonarShader_Parent parent = GetComponentInParent<SimpleSonarShader_Parent>();
+        parent?.StartSonarRing(point, force);
     }
 
     private void StartSonarRing(Vector3 position, float force)
@@ -62,5 +69,6 @@ public class SimpleSonarShader_ExampleCollision : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         PerformSonarLogic(collision.contacts[0].point, collision.impulse.magnitude / divisorPotencia);
+        Debug.Log("sa chocao");
     }
 }

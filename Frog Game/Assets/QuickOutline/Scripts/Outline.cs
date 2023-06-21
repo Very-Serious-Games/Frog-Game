@@ -109,6 +109,13 @@ public class Outline : MonoBehaviour
         needsUpdate = true;
     }
 
+    public void SetOutlineActive()
+    {
+        StopFadeCoroutine(); // Stop any existing fade coroutine
+        OutlineWidth = 10f; // Set the outline width to the desired value
+        needsUpdate = true;
+        
+    }
     public void ActivateOutline()
     {
         StopFadeCoroutine(); // Stop any existing fade coroutine

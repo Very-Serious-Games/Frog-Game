@@ -13,24 +13,32 @@ public class PlayerController : MonoBehaviour
     public float playerJumpHeight = 1.0f;
     private float gravityValue = -9.81f;
     [SerializeField] SimpleSonarShader_ExampleCollision sonarExample;
+    [SerializeField] List<SC_NPCFollow> frienCroak;
+    [SerializeField] GameObject optionsMenu;
+
 
     [SerializeField] private float jumpStrength = 0f;
     [SerializeField] private float multiplier = 20f;
     [SerializeField] private float maxJumpStrength = 10f;
 
+    public bool isGrounded;
+
     private Transform cameraTransform;
 
-    private Animator animator;
+    private Animator _animator;
+
+    private Outline outline;
 
     void Start()
     {
         cameraTransform = Camera.main.transform;
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
         transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
         groundedPlayer = controller.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0)
@@ -49,16 +57,18 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButton("Jump") && groundedPlayer && jumpStrength < maxJumpStrength)
         {
-
+            _animator.SetBool("Jump", true);
+            _animator.SetBool("KeyUP", false);
             jumpStrength += Time.deltaTime * multiplier;
             Debug.Log(jumpStrength);
 
         }
         else if (Input.GetButtonUp("Jump"))
         {
-
+            _animator.SetBool("KeyUP", true);
             playerVelocity.y += Mathf.Sqrt(playerJumpHeight * -3.0f * gravityValue * jumpStrength);
             jumpStrength = 0f;
+            isGrounded = false;
 
         }
 
@@ -67,9 +77,46 @@ public class PlayerController : MonoBehaviour
             Vector3 playerPosition = transform.position;
             float force = 100.0f;
             sonarExample?.PerformSonarLogic(playerPosition, force);
+            foreach (SC_NPCFollow item in frienCroak)
+            {
+                if (item.state == SC_NPCFollow.State.follow)
+                {
+                    item.PerformSonarLogic();
+                }
+                
+            }
+        }
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            optionsMenu.SetActive(true);
+            Time.timeScale = 0f;
+        }
+
+        if (Input.GetKey(KeyCode.V)) {
+            foreach (SC_NPCFollow item in frienCroak)
+            {
+                item.PerformFollowLogic();
+
+            }
         }
 
         playerVelocity.y += gravityValue * Time.deltaTime;
+
+        if (groundedPlayer)
+        {
+            isGrounded = true;
+        }
+
+        if (!isGrounded)
+        {
+            _animator.SetBool("OnAir", true);
+            _animator.SetBool("Jump", false);
+        }
+        else {
+            _animator.SetBool("OnAir", false);
+        }
+
         controller.Move(playerVelocity * Time.deltaTime);
     }
 }
