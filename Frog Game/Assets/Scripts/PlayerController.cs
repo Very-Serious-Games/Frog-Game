@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
-    private float playerSpeed = 2.0f;
+    public float playerSpeed = 5.0f;
     public float playerJumpHeight = 1.0f;
     private float gravityValue = -9.81f;
     [SerializeField] SimpleSonarShader_ExampleCollision sonarExample;
@@ -21,9 +21,12 @@ public class PlayerController : MonoBehaviour
 
     private Transform cameraTransform;
 
+    private Animator animator;
+
     void Start()
     {
         cameraTransform = Camera.main.transform;
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -62,9 +65,6 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R)) {
             AudioManager.instance.PlaySFX("frog_sound");
-        }
-
-        if (Input.GetKey(KeyCode.V)){
             Vector3 playerPosition = transform.position;
             float force = 100.0f;
             sonarExample?.PerformSonarLogic(playerPosition, force);
