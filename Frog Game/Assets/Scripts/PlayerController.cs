@@ -21,18 +21,14 @@ public class PlayerController : MonoBehaviour
 
     private Transform cameraTransform;
 
-    private Animator animator;
+    private Animator _animator;
 
     private Outline outline;
 
     void Start()
     {
         cameraTransform = Camera.main.transform;
-        animator = GetComponent<Animator>();
-        outline = GetComponent<Outline>();
-        outline.SetOutlineActive();
-        outline.timer = 1000f;
-
+        _animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -57,14 +53,14 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButton("Jump") && groundedPlayer && jumpStrength < maxJumpStrength)
         {
-
+            _animator.SetBool("Jump", true);
             jumpStrength += Time.deltaTime * multiplier;
             Debug.Log(jumpStrength);
 
         }
         else if (Input.GetButtonUp("Jump"))
         {
-
+            _animator.SetBool("KeyUP", true);
             playerVelocity.y += Mathf.Sqrt(playerJumpHeight * -3.0f * gravityValue * jumpStrength);
             jumpStrength = 0f;
 
@@ -79,6 +75,14 @@ public class PlayerController : MonoBehaviour
         }
 
         playerVelocity.y += gravityValue * Time.deltaTime;
+
+        if (!groundedPlayer)
+        {
+            _animator.SetBool("OnAir", true);
+        }
+
+        // TO DO resetear el booleano de la animacion de OnAir. Ver donde ponerlo.
+
         controller.Move(playerVelocity * Time.deltaTime);
     }
 }
