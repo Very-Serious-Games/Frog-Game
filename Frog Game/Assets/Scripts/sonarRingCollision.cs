@@ -2,26 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class sonarRingCollision : MonoBehaviour {
-
+public class sonarRingCollision : MonoBehaviour
+{
     private Outline collidedOutline;
 
-    public void OnTriggerEnter(Collider collider) {
-
+    public void OnTriggerEnter(Collider collider)
+    {
         collidedOutline = collider.GetComponent<Outline>();
 
-        if (collider.tag != "Player")
+        if (collidedOutline != null)
         {
-            collidedOutline.ActivateOutline();
+            if (collider.tag != "Player")
+            {
+                collidedOutline.ActivateOutline();
+            }
+            else
+            {
+                Debug.Log("Player collision");
+            }
         }
-        else {
-            Debug.Log("Player collision");
-
-        }
-
     }
-
-
 }
-
-

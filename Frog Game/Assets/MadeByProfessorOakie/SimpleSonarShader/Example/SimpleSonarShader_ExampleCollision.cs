@@ -62,5 +62,6 @@ public class SimpleSonarShader_ExampleCollision : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         PerformSonarLogic(collision.contacts[0].point, collision.impulse.magnitude / divisorPotencia);
+        Debug.Log("sa chocao");
     }
 }
