@@ -16,6 +16,7 @@ public class LightScript : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Frog")){
             luz.intensity = 13;
             shader.PerformVisionRestoredLogic();
+            gameObject.SetActive(false);
         }
     }
 }
