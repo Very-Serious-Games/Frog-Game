@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public float playerSpeed = 5.0f;
     public float playerJumpHeight = 1.0f;
     private float gravityValue = -9.81f;
+    public float followDistance = 10f; // Maximum follow distance
     [SerializeField] SimpleSonarShader_ExampleCollision sonarExample;
     [SerializeField] List<SC_NPCFollow> frienCroak;
     [SerializeField] GameObject optionsMenu;
@@ -93,11 +94,33 @@ public class PlayerController : MonoBehaviour
             Time.timeScale = 0f;
         }
 
-        if (Input.GetKey(KeyCode.V)) {
-            foreach (SC_NPCFollow item in frienCroak)
-            {
-                item.PerformFollowLogic();
+        SC_NPCFollow GetNearestNPC()
+        {
+            SC_NPCFollow nearestNPC = null;
+            float nearestDistance = Mathf.Infinity;
+            Vector3 playerPosition = transform.position;
 
+            foreach (SC_NPCFollow npc in frienCroak)
+            {
+                float distance = Vector3.Distance(playerPosition, npc.transform.position);
+
+                if (distance < nearestDistance && distance <= followDistance)
+                {
+                    nearestNPC = npc;
+                    nearestDistance = distance;
+                }
+            }
+
+            return nearestNPC;
+        }
+
+        if (Input.GetKey(KeyCode.V))
+        {
+            SC_NPCFollow nearestNPC = GetNearestNPC();
+
+            if (nearestNPC != null)
+            {
+                nearestNPC.PerformFollowLogic();
             }
         }
 
