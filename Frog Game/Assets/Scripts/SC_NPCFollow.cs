@@ -55,8 +55,9 @@ public class SC_NPCFollow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
+        agent = GetComponent<NavMeshAgent>();
+        
     }
 
     // Update is called once per frame
