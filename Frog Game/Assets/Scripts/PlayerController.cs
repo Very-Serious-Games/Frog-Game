@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public float playerJumpHeight = 1.0f;
     private float gravityValue = -9.81f;
     [SerializeField] SimpleSonarShader_ExampleCollision sonarExample;
-    [SerializeField] BasicNavMeshAgent frienCroak;
+    [SerializeField] SC_NPCFollow frienCroak;
 
     [SerializeField] private float jumpStrength = 0f;
     [SerializeField] private float multiplier = 20f;
