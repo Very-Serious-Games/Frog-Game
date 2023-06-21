@@ -24,4 +24,11 @@ public class UiController : MonoBehaviour
     public void SfxVolume(){
         AudioManager.instance.SFXVolume(_sfxSlider.value);
     }
+
+    public void setActive(bool active){
+        gameObject.SetActive(active);
+        if(Time.timeScale== 0f){
+            Time.timeScale = 1f;
+        }
+    }
 }
