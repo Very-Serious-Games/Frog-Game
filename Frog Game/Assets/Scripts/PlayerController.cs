@@ -76,7 +76,11 @@ public class PlayerController : MonoBehaviour
             sonarExample?.PerformSonarLogic(playerPosition, force);
             foreach (SC_NPCFollow item in frienCroak)
             {
-                item.PerformSonarLogic();
+                if (item.state == SC_NPCFollow.State.follow)
+                {
+                    item.PerformSonarLogic();
+                }
+                
             }
         }
 
@@ -90,6 +94,7 @@ public class PlayerController : MonoBehaviour
             foreach (SC_NPCFollow item in frienCroak)
             {
                 item.PerformFollowLogic();
+
             }
         }
 
