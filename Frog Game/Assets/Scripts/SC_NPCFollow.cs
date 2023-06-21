@@ -19,7 +19,7 @@ public class SC_NPCFollow : MonoBehaviour
     public event EventHandler OnPlayerEnterZone;
     public event EventHandler OnPlayerEndsConversation;
     public State state = State.wondering;
-
+    
     public enum State{
         follow,
         wondering,
@@ -33,6 +33,7 @@ public class SC_NPCFollow : MonoBehaviour
         Vector3 npcPosition = transform.position;
         float force = 100.0f;
         sonarExample?.PerformSonarLogic2(npcPosition, force);
+
     }
 
     public void PerformWatchingLogic()

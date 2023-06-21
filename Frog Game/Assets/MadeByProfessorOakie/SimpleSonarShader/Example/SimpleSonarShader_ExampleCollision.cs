@@ -24,10 +24,11 @@ public class SimpleSonarShader_ExampleCollision : MonoBehaviour
     }
     
     public void PerformSonarLogic2(Vector3 point, float force)  {
-            OnSonarLogic?.Invoke(this, point);
-            // Start sonar ring from the specified point
-            SimpleSonarShader_Parent parent = GetComponentInParent<SimpleSonarShader_Parent>();
-            parent?.StartSonarRing(point, force);
+        OnSonarLogic?.Invoke(this, point);
+        // Start sonar ring from the specified point
+
+        SimpleSonarShader_Parent parent = GetComponentInParent<SimpleSonarShader_Parent>();
+        parent?.StartSonarRing(point, force);
     }
 
     private void StartSonarRing(Vector3 position, float force)

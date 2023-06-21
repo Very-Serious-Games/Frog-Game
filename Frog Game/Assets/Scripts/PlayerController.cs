@@ -13,11 +13,14 @@ public class PlayerController : MonoBehaviour
     public float playerJumpHeight = 1.0f;
     private float gravityValue = -9.81f;
     [SerializeField] SimpleSonarShader_ExampleCollision sonarExample;
-    [SerializeField] SC_NPCFollow frienCroak;
+    [SerializeField] List<SC_NPCFollow> frienCroak;
+    [SerializeField] GameObject optionsMenu;
+
 
     [SerializeField] private float jumpStrength = 0f;
     [SerializeField] private float multiplier = 20f;
     [SerializeField] private float maxJumpStrength = 10f;
+
 
     private Transform cameraTransform;
 
@@ -71,7 +74,23 @@ public class PlayerController : MonoBehaviour
             Vector3 playerPosition = transform.position;
             float force = 100.0f;
             sonarExample?.PerformSonarLogic(playerPosition, force);
-            frienCroak?.PerformSonarLogic();
+            foreach (SC_NPCFollow item in frienCroak)
+            {
+                item.PerformSonarLogic();
+            }
+        }
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            optionsMenu.SetActive(true);
+            Time.timeScale = 0f;
+        }
+
+        if (Input.GetKey(KeyCode.V)) {
+            foreach (SC_NPCFollow item in frienCroak)
+            {
+                item.PerformFollowLogic();
+            }
         }
 
         playerVelocity.y += gravityValue * Time.deltaTime;
