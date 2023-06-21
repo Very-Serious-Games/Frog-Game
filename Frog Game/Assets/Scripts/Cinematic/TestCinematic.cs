@@ -6,9 +6,9 @@ public class TestCinematic : MonoBehaviour
 {
     public int index;
 
-    bool fired;
+    public bool fired;
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter(Collider other)
     {
         if (!fired)
         {

@@ -13,6 +13,8 @@ public class CinematicManager : MonoBehaviour
         Instance = this;
     }
 
+    public bool isCinematicMode;
+
     public Transform gameCamera;
 
     public Transform[] cameraPositions;
@@ -78,11 +80,9 @@ public class CinematicManager : MonoBehaviour
 
     // Dialogs system
 
-    bool isCinematicMode;
-
     bool showingDialog;
 
-    TextMeshPro dialogTextC;
+    TextMeshProUGUI dialogTextC;
 
     int dialogIndex;
 
@@ -104,10 +104,9 @@ public class CinematicManager : MonoBehaviour
         showingDialog = false;
         dialogIndex = 0;
 
-        dialogTextC = dialogText.GetComponent<TextMeshPro>();
+        dialogTextC = dialogText.GetComponent<TextMeshProUGUI>();
 
         gameCameraC = gameCamera.GetComponent<GameCamera>();
-        OnTriggerCinematic(0);
     }
 
     // Update is called once per frame
@@ -121,10 +120,9 @@ public class CinematicManager : MonoBehaviour
                 for (int i = 0; i < dialogCharacters.Length; i++) { dialogCharacters[i].gameObject.SetActive(false); }
 
                 int character = dialogsData[dialogIndex].character;
-                string text = dialogsData[dialogIndex].text;
 
                 dialogCharacters[character].gameObject.SetActive(true);
-                dialogTextC.text = text;
+                dialogTextC.text = dialogsData[dialogIndex].text;
 
                 if (Input.GetButtonDown("Fire1"))
                 {
