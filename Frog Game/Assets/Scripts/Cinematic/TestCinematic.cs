@@ -10,12 +10,11 @@ public class TestCinematic : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (!fired)
+        if (!fired && other.gameObject.layer == LayerMask.NameToLayer("Frog"))
         {
-            CinematicManager.Instance.OnTriggerCinematic(index);
+            CinematicManager.Instance.OnTriggerCinematic(index);            
 
             fired = true;
         }
-
     }
 }
